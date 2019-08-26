@@ -175,7 +175,33 @@ typedef unsigned char uchar;
     WriteCommand(N);
     WriteData(M);
     };
-  void DrawFullScreen(uchar *P);
+  void DrawFullScreen(uchar *P){
+  int Y_Group, X, Y, Z; //
+  int TEMP;
+  int TMP;
+  for(Y_Group = 0; Y_Group < 64; Y_Group ++){
+  if(Y_Group < 32){
+  X = 0x08;
+  Y = Y_Group + 0x08;
+  }
+
+  else{
+  X = 0x88;
+  Y = Y_Group - 32 + 0x80;
+  }
+  WriteCommand(0x34);
+  WriteCommand(Y);
+  WriteCommand(X);
+  WriteCommand(0x30);
+  WriteCommand(0x0C);
+  TMP = Y_Group * 16;
+  for(Z = 0; Z < 16; Z ++){
+  TEMP = P[TMP ++];
+    }
+    }
+  WriteCommand(0x34);
+  WriteCommand(0x36);
+  };
   void DisplayInt(int M, int N, int Value){
     switch(M){
     case 0:
