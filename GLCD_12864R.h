@@ -83,7 +83,41 @@ typedef unsigned char uchar;
     digitalWrite(PROCESS_GLCD_DB6, DB6);
     digitalWrite(PROCESS_GLCD_DB7, DB7);
     };
-  void init(){
+  
+  
+  
+  
+  void delays(void){
+    delayMicroseconds(DelayTime); //
+    };
+  
+  
+  
+  void VectorConverter(int Vector){
+    int Result = Vector;
+    for(int i = 7; i >= 0; i--){
+//      int temp[] = Result;
+      }
+    };
+  
+  
+  
+  void WriteCommand(int Command){
+    delays();
+    delays();
+    VectorConverter(Command);
+    };
+  
+  
+  
+  void WriteData(int Command){
+    delays();
+    delays();
+    VectorConverter(Command);
+    //
+    };
+  
+  void init(void){
     pinMode(PROCESS_GLCD_RS, IO_GLCD_RS); //
     pinMode(PROCESS_GLCD_RW, IO_GLCD_RW); //
     pinMode(PROCESS_GLCD_EN, IO_GLCD_EN); //
@@ -100,33 +134,12 @@ typedef unsigned char uchar;
     WriteCommand(0x01);
     WriteCommand(0x06);
     };
-  void delays(void){
-    delayMicroseconds(DelayTime); //
-    };
-  void VectorConverter(int Vector){
-    int Result = Vector;
-    for(int i = 7; i >= 0; i--){
-//      int temp[] = Result;
-      }
-    };
-  void WriteCommand(int Command){
-    delays();
-    delays();
-    VectorConverter(Command);
-    };
-  void WriteData(int Command){
-    delays();
-    delays();
-    VectorConverter(Command);
-    };
-  void cleadGLCD(void){
+  
+  void clear(void){
+    WriteCommand(0x30);
+    WriteCommand(0x01);
     };
 
-
-
-  void DrawFullScreen(){
-    
-  }
   void DisplayString(int X_Column, int Y_Row, uchar *Print, int Data){
     int i;
     switch(X_Column){
@@ -175,6 +188,8 @@ typedef unsigned char uchar;
     WriteCommand(N);
     WriteData(M);
     };
+
+  
   void DrawFullScreen(uchar *P){
   int Y_Group, X, Y, Z; //
   int TEMP;
@@ -197,11 +212,22 @@ typedef unsigned char uchar;
   TMP = Y_Group * 16;
   for(Z = 0; Z < 16; Z ++){
   TEMP = P[TMP ++];
+  if(Z < 32){
+    X = 0x80;
+    Y = Y_Group + 0x80;
+
+    
     }
+    }
+    
     }
   WriteCommand(0x34);
   WriteCommand(0x36);
   };
+
+
+
+  
   void DisplayInt(int M, int N, int Value){
     switch(M){
     case 0:
