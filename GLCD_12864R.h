@@ -190,40 +190,7 @@ typedef unsigned char uchar;
     };
 
   
-  void DrawFullScreen(uchar *P){
-  int Y_Group, X, Y, Z; //
-  int TEMP;
-  int TMP;
-  for(Y_Group = 0; Y_Group < 64; Y_Group ++){
-  if(Y_Group < 32){
-  X = 0x08;
-  Y = Y_Group + 0x08;
-  }
 
-  else{
-  X = 0x88;
-  Y = Y_Group - 32 + 0x80;
-  }
-  WriteCommand(0x34);
-  WriteCommand(Y);
-  WriteCommand(X);
-  WriteCommand(0x30);
-  WriteCommand(0x0C);
-  TMP = Y_Group * 16;
-  for(Z = 0; Z < 16; Z ++){
-  TEMP = P[TMP ++];
-  if(Z < 32){
-    X = 0x80;
-    Y = Y_Group + 0x80;
-
-    
-    }
-    }
-    
-    }
-  WriteCommand(0x34);
-  WriteCommand(0x36);
-  };
 
 
 
@@ -254,10 +221,54 @@ typedef unsigned char uchar;
     Disdata[1] = Value % 1000 / 100 + 0x03;
     Disdata[2] = Value % 100 / 10 + 0x03;
     Disdata[3] = Value % 10 + 0x03;
-    if(Disdata[0] == 0x03){
-      
+    if(Disdata[0] == 0x30){
+      Disdata[0] = 0x20; //
+    if(Disdata[1] == 0x30){
+    Disdata[1] = 20; //
+      }
     }
+    WriteCommand(N); //
+    WriteData(Disdata[0]); //
+    WriteData(Disdata[1]); //
+    WriteData(Disdata[2]); //
+    WriteData(Disdata[3]); //
     };
+
+
+  void DrawFullScreen(uchar *P){
+  int Y_Group, X, Y, Z; //
+  int TEMP;
+  int TMP;
+  for(Y_Group = 0; Y_Group < 64; Y_Group ++){
+  if(Y_Group < 32){
+  X = 0x08;
+  Y = Y_Group + 0x08;
+  }
+
+  else{
+  X = 0x88;
+  Y = Y_Group - 32 + 0x80;
+  }
+  WriteCommand(0x34);
+  WriteCommand(Y);
+  WriteCommand(X);
+  WriteCommand(0x30);
+  WriteCommand(0x0C);
+  TMP = Y_Group * 16;
+  for(Z = 0; Z < 16; Z ++){
+  TEMP = P[TMP ++];
+  WriteData(TMP); //
+    }
+    
+    }
+  WriteCommand(0x34);
+  WriteCommand(0x36);
+  };
+
+
+
+
+    
   int ScreenBuffer[16][32];
   int DelayTime;
   int DefaultTime;
