@@ -129,15 +129,18 @@ typedef unsigned char uchar;
     pinMode(PROCESS_GLCD_DB5, IO_GLCD_DB5); //
     pinMode(PROCESS_GLCD_DB6, IO_GLCD_DB6); //
     pinMode(PROCESS_GLCD_DB7, IO_GLCD_DB7); //
+    delays();
     WriteCommand(0x30);
     WriteCommand(0x0C);
     WriteCommand(0x01);
     WriteCommand(0x06);
+    //OK
     };
   
   void clear(void){
     WriteCommand(0x30);
     WriteCommand(0x01);
+    //OK
     };
 
   void DisplayString(int X_Column, int Y_Row, uchar *Print, int Data){
@@ -162,6 +165,7 @@ typedef unsigned char uchar;
       default:
       break;
       };
+    //OK   
   }
 
   void DisplaySignal(int M, int N, int Signal){
@@ -185,14 +189,10 @@ typedef unsigned char uchar;
       default:
       break;
     }
-    WriteCommand(N);
-    WriteData(M);
+    WriteCommand(N); //
+    WriteData(Signal); //
+    //OK
     };
-
-  
-
-
-
 
   
   void DisplayInt(int M, int N, int Value){
@@ -217,14 +217,14 @@ typedef unsigned char uchar;
     break;
     }
     char Disdata[4]; //
-    Disdata[0] = Value / 1000 + 0x03; 
-    Disdata[1] = Value % 1000 / 100 + 0x03;
-    Disdata[2] = Value % 100 / 10 + 0x03;
-    Disdata[3] = Value % 10 + 0x03;
+    Disdata[0] = Value / 1000 + 0x03; //
+    Disdata[1] = Value % 1000 / 100 + 0x03; //
+    Disdata[2] = Value % 100 / 10 + 0x03; //
+    Disdata[3] = Value % 10 + 0x03; //
     if(Disdata[0] == 0x30){
       Disdata[0] = 0x20; //
     if(Disdata[1] == 0x30){
-    Disdata[1] = 20; //
+    Disdata[1] = 0x20; //
       }
     }
     WriteCommand(N); //
@@ -232,6 +232,7 @@ typedef unsigned char uchar;
     WriteData(Disdata[1]); //
     WriteData(Disdata[2]); //
     WriteData(Disdata[3]); //
+    //OK
     };
 
 
@@ -249,26 +250,22 @@ typedef unsigned char uchar;
   X = 0x88;
   Y = Y_Group - 32 + 0x80;
   }
-  WriteCommand(0x34);
-  WriteCommand(Y);
-  WriteCommand(X);
-  WriteCommand(0x30);
-  WriteCommand(0x0C);
+  WriteCommand(0x34); //
+  WriteCommand(Y); //
+  WriteCommand(X); //
+  WriteCommand(0x30); //
+  WriteCommand(0x0C); //
   TMP = Y_Group * 16;
   for(Z = 0; Z < 16; Z ++){
   TEMP = P[TMP ++];
   WriteData(TMP); //
     }
-    
     }
-  WriteCommand(0x34);
-  WriteCommand(0x36);
-  };
+  WriteCommand(0x34); //
+  WriteCommand(0x36); //
+  //OK
+  }; //
 
-
-
-
-    
   int ScreenBuffer[16][32];
   int DelayTime;
   int DefaultTime;
