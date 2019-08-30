@@ -5,9 +5,7 @@
 #define IO_MCU_GLCD_RW OUTPUT
 #define IO_MCU_GLCD_EN OUTPUT
 
-//int PROCESS_GLCD_RS;
-//int PROCESS_GLCD_RW;
-//int PROCESS_GLCD_EN;
+typedef unsigned char uchar; //
 
 class GLCD_12864R_SPI{
   public:
@@ -16,7 +14,7 @@ class GLCD_12864R_SPI{
  void Driver(){
     
   };
- void init(){
+ void init(void){
       };
 
  void Delays(){
@@ -65,6 +63,10 @@ int DefaultTime; //
   private:
   
   protected:
+
+int PROCESS_GLCD_RS;
+int PROCESS_GLCD_RW;
+int PROCESS_GLCD_EN;
 };
 
 #endif
