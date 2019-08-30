@@ -13,8 +13,54 @@ class GLCD_12864R_SPI{
   public:
   GLCD_12864R_SPI(int RS, int RW, int EN){
     }
-    void init(){
+ void Driver(){
+    
+  };
+ void init(){
       };
+
+ void Delays(){
+      
+    }
+
+ void WriteByte(){
+  
+ }
+
+ void WriteCommand(){
+  
+ }
+
+void WriteData(){
+  
+}
+
+void clear(){
+  
+}
+
+void DisplayString(){
+  
+}
+
+void DisplaySignal(){
+  
+}
+
+void DrawFullScreen(){
+  
+}
+
+void Image1(){
+
+}
+
+void Image2(){
+
+}
+
+int DelayTime; //
+int DefaultTime; //
   
   private:
   
